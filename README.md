@@ -1,2 +1,2 @@
 # Archive
-An archive program in python with a graphical user interface and SQLlite database.
+An archive in python with a graphical user interface and SQLlite database.
