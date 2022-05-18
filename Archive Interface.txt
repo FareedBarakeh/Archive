@@ -1,0 +1,74 @@
+import tkinter as tk 
+import requests
+#ther is three ways of placing things 1- pack 2-grid 3-place
+# pack has 3 opions expand fill side 
+# grid has many tings some of row and coloum
+#www.tutorialspoint.com for more
+
+HEIGHT = 500
+WIDTH = 600
+
+def test_function(entry):
+    print("this is the entry: ", entry)
+
+def get_weather(city):
+    weather_key = "59134ec49b61701dbc67dabeb1975ab8 "
+    url = 'https://api.openweathermap.org/data/2.5/weather'
+    #param sending what we are trying to request form the server
+
+    params = {'APPID' : weather_key, "q" : city , "units" : "imperial"}
+    response = requests.get(url, params=params)
+    weather = response.json()
+    
+    print(weather["name"])
+    print(weather["weather"][0]["discription"])
+    print(weather["main"]["temp"])
+
+  
+
+
+#59134ec49b61701dbc67dabeb1975ab8
+#api.openweathermap.org/data/2.5/forecast?q={city name},{country code}
+
+root = tk.Tk()
+
+canvas = tk.Canvas(root, height=HEIGHT, width = WIDTH)
+# DON'T FORGET THE # BEFORE THE COLOOOOOR!!
+
+background_image = tk.PhotoImage(file ="ezgif-4-c7bcc3f7701c.gif")
+#./ means that the image is in the same dirc
+# python don't support jpg because it is stupid gif on the other hand is ok
+background_label = tk.Label(root, image = background_image)
+background_label.place( relwidth = 1, relheight = 1)
+
+
+frame = tk.Frame(root, bg = '#41B3A3',bd =5)
+#bd = stands for border
+frame.place(relx = 0.5,rely = 0.1, relwidth = 0.75 , relheight = 0.1, anchor = 'n')
+# relwidth how much of the wedget will be fulfill with the color.
+# relx and rely are used here to center the color 
+# anchor is not nice
+  
+entry = tk.Entry(frame,font=40)
+#font is the size of the font
+entry.place(relwidth=0.65, relheight = 1 )
+# the whole screen is relwidth =1 and relheight = 1 
+
+button = tk.Button(frame, text = "Get Weather",font = 40 , command=lambda: get_weather(entry.get()))
+
+#button = tk.Button(frame, text = "Get Weather",font = 40 , command = test_function(entry.get()))
+#we can theorticaly use function .get but teh ting is that it sucks .. i mean it doesn't update tings
+
+button.place(relx=0.7, relheight =1, relwidth = 0.3 )
+
+
+
+
+lower_frame = tk.Frame(root,bg = '#41B3A3',bd = 10 )
+lower_frame.place(relx = 0.5, rely =0.25, relwidth = 0.75 , relheight = 0.6 , anchor = 'n')
+
+label = tk.Label(lower_frame)
+label.place(relwidth = 1 , relheight = 1 )
+
+
+root.mainloop()
